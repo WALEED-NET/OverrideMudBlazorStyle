@@ -1,16 +1,57 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-        <article class="content px-4">
+<MudRTLProvider RightToLeft="true" >
+
+    <MudLayout>
+        <MudAppBar class="mainAppBar">
+            <div class="NavBtn d-flex">
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                <img class="AppLogo" src="_content/AbdullahBinMasoud.Shared/imgs/whatsapp image 2024-08-12 at 10.38.40 pm 1.png" />
+            </div>
+
+              @* <MudTextField class="headerSearch" @bind-Value="Search" Label="Search" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" /> *@
+            <div class="headerSearch d-none d-sm-block">
+                <input type="text" placeholder="search"/>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="headerLeft">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                       Hello World
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-user"></i> My Profile</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </ul>
+                </div>
+                <img src="imgs/abc.jpg" />
+
+            </div>
+        </MudAppBar>
+        <MudDrawer @bind-Open="@_drawerOpen">
+            <NavMenu/>
+        </MudDrawer>
+        <MudMainContent>
             @Body
-        </article>
-    </main>
-</div>
+        </MudMainContent>
+    </MudLayout>
+
+</MudRTLProvider>
+
+@code {
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    public string Search { get; set; }
+
+}
